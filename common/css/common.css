@@ -19,6 +19,10 @@ ul li {
     list-style: none;
 }
 
+body {
+    padding-top: 50px;
+}
+
 .cls:after {
     display: table;
     content: "";
@@ -57,9 +61,7 @@ ul li {
     box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
-.power {
-    margin-top: 50px;
-}
+.power {}
 
 .power-box {}
 
@@ -176,3 +178,38 @@ ul li {
     display: inline-block;
     color: #333;
 }
+
+
+/* 网站历程 */
+
+.history {
+    width: 1200px;
+    margin: 20px auto;
+    padding: 10px;
+    box-shadow: 0 0 2px #252525;
+}
+
+.history > h2 {
+    height: 50px;
+    font-size: 30px;
+    line-height: 50px;
+    border-bottom: 1px solid #eee;
+    text-indent: 20px;
+}
+
+.history > ul {
+    padding-left: 60px;
+}
+
+.history > ul > li {
+    list-style: circle;
+    margin: 10px 0;
+    line-height: 24px;
+}
+.history a {
+    display: inline-block;
+    color: red;
+}
+
+
+/* 网站历程 */
