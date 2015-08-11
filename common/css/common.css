@@ -37,6 +37,7 @@ body {
     height: 50px;
     background-color: #519be5;
     box-shadow: 0 0px 10px #000;
+    z-index: 5;
 }
 
 .header-box {
@@ -206,6 +207,7 @@ body {
     margin: 10px 0;
     line-height: 24px;
 }
+
 .history a {
     display: inline-block;
     color: red;
@@ -213,3 +215,58 @@ body {
 
 
 /* 网站历程 */
+
+
+/* 博客 */
+
+.note {
+    padding: 0 0 10px;
+    background-color: #fcfcfc;
+}
+
+.note-wrap {
+    position: relative;
+    margin: 0 auto;
+    padding: 10px 0 0;
+    width: 1200px;
+}
+
+.grid {
+    width: 254px;
+    min-height: 100px;
+    padding: 15px;
+    background: #fff;
+    margin: 8px;
+    font-size: 12px;
+    float: left;
+    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+    -moz-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+    -webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+    -webkit-transition: top 1s ease, left 1s ease;
+    -moz-transition: top 1s ease, left 1s ease;
+    -o-transition: top 1s ease, left 1s ease;
+    -ms-transition: top 1s ease, left 1s ease;
+}
+
+.grid-title {
+    border-bottom: 1px solid #ccc;
+    margin: 10px 0;
+    display: block;
+    padding: 0 0 5px;
+    font-size: 17px;
+}
+
+.grid-meta {
+    text-align: right;
+    color: #777;
+    font-style: italic;
+}
+
+.grid-img img {
+    width: 100%;
+    background: #ccc;
+    display: block;
+}
+
+
+/* 博客 */
