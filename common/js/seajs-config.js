@@ -1,8 +1,9 @@
 seajs.config({
-	base: "/moe/",
+	base: (function(){
+		return window.location.href.indexOf("source.unclay.com") >= 0 ? 'http://source.unclay.com/moe/' : 'http://localhost:8011/moe/';
+	}()),
 	paths: {
-		//"coding": "http://"+window.location.host
-		"PathCodemirror": (/192\.1682\.|172\.16./.test(window.location.href) ? "http://7u2of8.com1.z0.glb.clouddn.com" : "http://localhost:18080") + "/common/codemirror"
+		
 	},
 	alias: {
 		"jquery": "jquery/1.8.3/jquery.js"
