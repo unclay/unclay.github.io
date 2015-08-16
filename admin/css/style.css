@@ -48,6 +48,7 @@ body .dpib { display: inline-block; }
 .fs26 { font-size: 26px; }
 .fs28 { font-size: 28px; }
 .fs30 { font-size: 30px; }
+input[type="checkbox"] { margin: 0 1px 0 10px; }
 .pdleft12 { padding-left: 12px; }
 .textc { text-align: center; }
 .hidd { display: none; }

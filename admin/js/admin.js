@@ -7,10 +7,45 @@ define(function(require, exports, module){
 	var url = new Url(window.location.href);
 	Handlebars.registerHelper("getStatus", function(status){
 		return status === 1 ? "启用": "停用";
-		
+	});
+	Handlebars.registerHelper("setTag", function(tag, arr){
+		var html = '';
+		var checked = '';
+		tag = tag || [];
+		for(var i=0; i<arr.length; i++){
+			if( tag.length == 0 ){
+				checked = i == 0 ? "checked": "";
+				html += '<label for="tag'+arr[i]._id+'"><input type="checkbox" name="tag'+arr[i]._id+'" id="tag'+arr[i]._id+'" value="'+arr[i]._id+'" '+ checked +' />' + arr[i].name + '</label>';
+			} else {
+				checked = "";
+				for(var j=0; j<tag.length; j++){
+					if( tag[j] == arr[i]._id ){
+						checked = "checked";
+						break;
+					}
+				}
+				html += '<label for="tag'+arr[i]._id+'"><input type="checkbox" name="tag'+arr[i]._id+'" id="tag'+arr[i]._id+'" value="'+arr[i]._id+'" '+ checked +' />' + arr[i].name + '</label>';
+			}
+		}
+		return html;
+		// <input type="checkbox" name="tag" id="tag{{id}}" value="{{id}}" {{ischecked}}/>{{name}}</label>
 	});
 
 	var G_pageType = window.location.href.match(/admin(\/\w*)+/g)[0];
+
+	function getValueTag(cb, op){
+		$.ajax({
+			url: Config.getSiteUrl("api")+"/api/v1/tag",
+			type: "GET",
+			data: op || {},
+			success: function(data){
+				cb && cb(data);
+			},
+			error: function(data){
+				console.log(data);
+			}
+		});
+	}
 
 	if( G_pageType === "admin/note" ){
 		$.ajax({
@@ -26,6 +61,9 @@ define(function(require, exports, module){
 			}
 		})
 	} else if( G_pageType === "admin/note/insert" ){
+		getValueTag(function(data){
+			$("#JS_tag").html( Handlebars.compile("{{setTag temp this}}", { noEscape: true })(data.data.list) );
+		});
 		$("#JS_submit").on("click", function(e){
 			var json = {
 				title: $("#JS_title").val(),
@@ -64,17 +102,30 @@ define(function(require, exports, module){
 			type: "GET",
 			data: {},
 			success: function(data){
-				var tpl = $("#JS_form_tpl").html();
-				$("#JS_form").html( Handlebars.compile(tpl, { noEscape: true })(data.data) );
-				setEventNoteSubmit();
+				getValueTag(function(tag){
+					console.log(tag);
+					data.data.arrTag = tag.data.list;
+					var tpl = $("#JS_form_tpl").html();
+					$("#JS_form").html( Handlebars.compile(tpl, { noEscape: true })(data.data) );
+					setEventNoteUpdate();
+				});
+				
 			},
 			error: function(data){
+				$("#JS_form").html(JSON.stringify(data));
 				console.log(data);
 			}
 		});
+
 		
-		function setEventNoteSubmit(){
+		
+		function setEventNoteUpdate(){
 			$("#JS_submit").on("click", function(e){
+				var $chk = $("#JS_tag input[type=checkbox]:checked");
+				var tag = [];
+				for(var i=0; i<$chk.length; i++){
+					tag.push($chk.eq(i).val());
+				}
 				var json = {
 					title: $("#JS_title").val(),
 					intro: $("#JS_intro").val(),
@@ -83,18 +134,24 @@ define(function(require, exports, module){
 					seo_title: $("#JS_seoTitle").val(),
 					seo_keywords: $("#JS_seoKeywords").val(),
 					seo_description: $("#JS_seoDescription").val(),
-					seo_url: $("#JS_seoUrl").val()
+					seo_url: $("#JS_seoUrl").val(),
+					_id: url.getParam("id"),
+					tag: tag
 				};
 				console.log(json);
 				$.ajax({
 					url: Config.getSiteUrl("api")+"/api/v1/note",
-					type: "POST",
+					type: "PUT",
 					data: json,
 					xhrFields: {
 						withCredentials:true
 					},
 					success: function(data){
-						console.log(data);
+						if( data.code === 0 ){
+							alert("更新成功");
+						} else {
+							alert(data.message);
+						}
 					},
 					error: function(data){
 						console.log(data);
