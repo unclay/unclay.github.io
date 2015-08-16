@@ -213,6 +213,10 @@ body {
     color: red;
 }
 
+.history > img {
+    width: 100%;
+}
+
 
 /* 网站历程 */
 

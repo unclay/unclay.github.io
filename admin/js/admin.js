@@ -45,7 +45,42 @@ define(function(require, exports, module){
 				console.log(data);
 			}
 		});
-	}
+	};
+	function setThumbnail(){
+		$("#JS_btn_thumbnail").on("click", function(){
+            var thumbnailForm = new FormData();
+            thumbnailForm.append("file",$("#JS_file_thumbnail")[0].files[0]);
+            thumbnailForm.append("place", "thumbnail");
+            //thumbnailForm.append("id", );
+            $.ajax({
+                cache: false,
+                url: Config.getSiteUrl("api")+"/api/v1/file",
+                type: "POST",
+                data: thumbnailForm,
+                contentType: false,
+                processData: false,
+                success: function(data){
+                    console.log(data);
+                    if( data.code === 0 ){
+                    	$("#JS_thumbnail").val(data.data.filename);
+                    	$("#JS_img_thumbnail").attr("src", Config.getSiteUrl("api")+"/thumbnail/"+data.data.filename).show();
+                    } else {
+                    	alert( data.message );
+                    }
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+            // var xhr=new XMLHttpRequest();
+            //  xhr.open("post","index.html",true);
+            //  xhr.onload= function (e) {
+            //      if(this.status==200)
+            //          document.getElementById("result").innerHTML=this.response;
+            //  };
+            //  xhr.send(formData);
+        });
+	};
 
 	if( G_pageType === "admin/note" ){
 		$.ajax({
@@ -96,6 +131,7 @@ define(function(require, exports, module){
 			});
 			e.preventDefault();
 		});
+		setThumbnail();
 	} else if( G_pageType === "admin/note/update" ){
 		$.ajax({
 			url: Config.getSiteUrl("api")+"/api/v1/note/" + url.getParam("id"),
@@ -108,6 +144,7 @@ define(function(require, exports, module){
 					var tpl = $("#JS_form_tpl").html();
 					$("#JS_form").html( Handlebars.compile(tpl, { noEscape: true })(data.data) );
 					setEventNoteUpdate();
+					setThumbnail();
 				});
 				
 			},
