@@ -1,6 +1,7 @@
 seajs.config({
 	base: (function(){
-		return window.location.href.indexOf("unclay.com") >= 0 ? 'http://source.unclay.com/moe/' : 'http://localhost:8011/moe/';
+		return window.location.href.indexOf("unclay.com") >= 0 ? 'http://source.unclay.com/moe/' : 
+			window.location.href.indexOf("home.com") >= 0 ? 'http://source.home.com/moe/' : 'http://localhost:8011/moe/';
 	}()),
 	paths: {
 		
