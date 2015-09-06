@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>css3-3d-transform-circle</title>
+	<style>
+  @-webkit-keyframes animateRotate {
+    0% { -webkit-transform:    rotateX(139deg) rotateY(0deg);       }
+    4% { -webkit-transform:    rotateX(139deg) rotateY(0deg);       }
+    11.1% { -webkit-transform: rotateX(139deg) rotateY(40deg);   }
+    15% { -webkit-transform:   rotateX(139deg) rotateY(40deg);     }
+    22.2% { -webkit-transform: rotateX(139deg) rotateY(80deg);   }
+    26% { -webkit-transform:   rotateX(139deg) rotateY(80deg);     }
+    33.3% { -webkit-transform: rotateX(139deg) rotateY(120deg);  }
+    37% { -webkit-transform:   rotateX(139deg) rotateY(120deg);    }
+    44.4% { -webkit-transform: rotateX(139deg) rotateY(160deg);  }
+    48% { -webkit-transform:   rotateX(139deg) rotateY(160deg);    }
+    55.5% { -webkit-transform: rotateX(139deg) rotateY(200deg);  }
+    59% { -webkit-transform:   rotateX(139deg) rotateY(200deg);    }
+    66.6% { -webkit-transform: rotateX(139deg) rotateY(240deg);  }
+    70% { -webkit-transform:   rotateX(139deg) rotateY(240deg);    }
+    77.7% { -webkit-transform: rotateX(139deg) rotateY(280deg);  }
+    81% { -webkit-transform:   rotateX(139deg) rotateY(280deg);    }
+    88.8% { -webkit-transform: rotateX(139deg) rotateY(320deg);  }
+    92% { -webkit-transform:   rotateX(139deg) rotateY(320deg);    }
+    100% { -webkit-transform:  rotateX(139deg) rotateY(360deg);   }
+  }
+  .animate { position: fixed; top: 50%; left: 50%; width: 128px; height: 100px; margin: -50px 0 0 -64px; -webkit-transition: transform 1s; -webkit-transform-style: preserve-3d; }
+  .animate > img { position: absolute; bottom: 0; display: block; width: 128px; }
+  .animate > img:nth-child(1) { -webkit-transform: rotateY(  0deg) translateZ(195.8px); }
+  .animate > img:nth-child(2) { -webkit-transform: rotateY( 40deg) translateZ(195.8px); }
+  .animate > img:nth-child(3) { -webkit-transform: rotateY( 80deg) translateZ(195.8px); }
+  .animate > img:nth-child(4) { -webkit-transform: rotateY(120deg) translateZ(195.8px); }
+  .animate > img:nth-child(5) { -webkit-transform: rotateY(160deg) translateZ(195.8px); }
+  .animate > img:nth-child(6) { -webkit-transform: rotateY(200deg) translateZ(195.8px); }
+  .animate > img:nth-child(7) { -webkit-transform: rotateY(240deg) translateZ(195.8px); }
+  .animate > img:nth-child(8) { -webkit-transform: rotateY(280deg) translateZ(195.8px); }
+  .animate > img:nth-child(9) { -webkit-transform: rotateY(320deg) translateZ(195.8px); }
+  .animate-rotate { -webkit-animation: animateRotate 6s infinite linear; }
+  .animate-bias { -webkit-transform: rotateX(-13deg) rotateY(0deg); }
+  .direct-x { position: absolute; width: 100%; height: 100%; }
+  .direct-x:after { position: absolute; left: -250px; top: 50%; display: block; width: 600px; height: 1px; background: red; content: "ｘ"; }
+  .direct-y { position: absolute; width: 100%; height: 100%; }
+  .direct-y:after { position: absolute; top: -150px; left: 50%; display: block; width: 1px; height: 400px; background: red; content: "ｙ点击可以旋转"; -webkit-transform: rotateY(15deg); }
+  .direct-z { position: absolute; width: 100%; height: 100%; }
+  .direct-z:after { position: absolute; top: -250px; left: 50%; display: block; width: 1px; height: 600px; background: red; content: "ｚ"; -webkit-transform: rotateX(-90deg) rotateY(90deg); }
+
+  </style>
+</head>
+<body>
+	<div class="animate animate-bias" id="JS_animate" style="display: none;">
+		<img src="./img/001.jpg" alt="">
+		<img src="./img/002.jpg" alt="">
+		<img src="./img/003.jpg" alt="">
+		<img src="./img/004.jpg" alt="">
+		<img src="./img/005.jpg" alt="">
+		<img src="./img/006.jpg" alt="">
+		<img src="./img/007.jpg" alt="">
+		<img src="./img/008.jpg" alt="">
+		<img src="./img/009.jpg" alt="">
+		<span class="direct-x"></span>
+		<span class="direct-y"></span>
+		<span class="direct-z"></span>
+	</div>
+	<div class="animate animate-bias" id="JS_animate_nullimg">
+		<img src="./img/xxx.jpg" alt="">
+		<img src="./img/xxx.jpg" alt="">
+		<img src="./img/xxx.jpg" alt="">
+		<img src="./img/xxx.jpg" alt="">
+		<img src="./img/xxx.jpg" alt="">
+		<img src="./img/xxx.jpg" alt="">
+		<img src="./img/xxx.jpg" alt="">
+		<img src="./img/xxx.jpg" alt="">
+		<img src="./img/xxx.jpg" alt="">
+		<span class="direct-x"></span>
+		<span class="direct-y"></span>
+		<span class="direct-z"></span>
+	</div>
+	<button id="JS_btn" style="position: fixed; top: 0; left: 0; width: 100px; height: 30px;">启动有图模式</button>
+  	<script>
+  	// 有图
+	var animateVal = 0;
+	document.getElementById("JS_animate").addEventListener("click",animate,false);
+	function animate(){
+		animateVal += 40;
+		this.style.webkitTransform = "rotateX(-13deg) rotateY("+animateVal+"deg)";
+	}
+	// 无图
+	var animateValNull = 0;
+	document.getElementById("JS_animate_nullimg").addEventListener("click",animateNull,false);
+	function animateNull(){
+		animateValNull += 40;
+		this.style.webkitTransform = "rotateX(-13deg) rotateY("+animateValNull+"deg)";
+	}
+	
+	document.getElementById("JS_btn").addEventListener("click",turnModel,false);
+  	function turnModel(){
+  		this.t = this.t || 0;
+  		if(this.t == 0){
+  			this.t = 1;
+  			this.innerHTML= "启动无图模式";
+  			document.getElementById("JS_animate").style.display = "block";
+  			document.getElementById("JS_animate_nullimg").style.display = "none";
+  		} else {
+  			this.t = 0;
+  			this.innerHTML= "启动有图模式"
+  			document.getElementById("JS_animate").style.display = "none";
+  			document.getElementById("JS_animate_nullimg").style.display = "block";
+  		}
+  	}
+  	</script>
+</body>
+</html>

@@ -114,7 +114,7 @@ define(function(require, exports, module){
 		});
 	}
 
-	if( G_pageType === "admin/note" ){
+	exports.note = function(){
 		$.ajax({
 			url: Config.getSiteUrl("api")+"/api/v1/note",
 			type: "GET",
@@ -126,8 +126,10 @@ define(function(require, exports, module){
 			error: function(data){
 				console.log(data);
 			}
-		})
-	} else if( G_pageType === "admin/note/insert" ){
+		});
+	}
+
+	exports.noteInsert = function(){
 		new Thumbnail({ id: "JS_select_thumbnail" });
 		getValueTag(function(data){
 			$("#JS_tag").html( Handlebars.compile("{{setTag temp this}}", { noEscape: true })(data.data.list) );
@@ -165,8 +167,8 @@ define(function(require, exports, module){
 			e.preventDefault();
 		});
 		setThumbnail();
-	} else if( G_pageType === "admin/note/update" ){
-		
+	}
+	exports.noteUpdate = function(){
 		$.ajax({
 			url: Config.getSiteUrl("api")+"/api/v1/note/" + url.getParam("id"),
 			type: "GET",
@@ -230,7 +232,8 @@ define(function(require, exports, module){
 				e.preventDefault();
 			});
 		}
-	} else if( G_pageType === "admin/tag" ){
+	}
+	exports.tag = function(){
 		$.ajax({
 			url: Config.getSiteUrl("api")+"/api/v1/tag",
 			type: "GET",
@@ -345,5 +348,16 @@ define(function(require, exports, module){
 			});
 			e.preventDefault();
 		});
+	}
+
+	if( G_pageType === "admin/note" ){
+		
+	} else if( G_pageType === "admin/note/insert" ){
+		
+	} else if( G_pageType === "admin/note/update" ){
+		
+		
+	} else if( G_pageType === "admin/tag" ){
+		
 	}
 });
