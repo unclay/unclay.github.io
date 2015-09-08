@@ -135,6 +135,11 @@ define(function(require, exports, module){
 			$("#JS_tag").html( Handlebars.compile("{{setTag temp this}}", { noEscape: true })(data.data.list) );
 		});
 		$("#JS_submit").on("click", function(e){
+			var $chk = $("#JS_tag input[type=checkbox]:checked");
+			var tag = [];
+			for(var i=0; i<$chk.length; i++){
+				tag.push($chk.eq(i).val());
+			}
 			var json = {
 				title: $("#JS_title").val(),
 				intro: $("#JS_intro").val(),
@@ -143,7 +148,8 @@ define(function(require, exports, module){
 				seo_title: $("#JS_seoTitle").val(),
 				seo_keyword: $("#JS_seoKeyword").val(),
 				seo_description: $("#JS_seoDescription").val(),
-				seo_url: $("#JS_seoUrl").val()
+				seo_url: $("#JS_seoUrl").val(),
+				tag: tag
 			};
 			$.ajax({
 				url: Config.getSiteUrl("api")+"/api/v1/note",

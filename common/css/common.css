@@ -23,11 +23,48 @@ body {
     padding-top: 50px;
 }
 
+@font-face {
+    font-family: "iconfont";
+    src: url('../font/iconfont.eot');
+    src: url('../font/iconfont.eot?#iefix') format('embedded-opentype'), url('../font/iconfont.woff') format('woff'), url('../font/iconfont.ttf') format('truetype'), url('../font/iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-jiantou:before {
+    content: "\e600";
+}
+
 .cls:after {
     display: table;
     content: "";
     clear: both;
     visibility: hidden;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.wrap {
+    padding: 0 0 10px;
+    background-color: #fcfcfc;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
 }
 
 .header {
@@ -223,18 +260,6 @@ body {
 
 /* 博客 */
 
-.note {
-    padding: 0 0 10px;
-    background-color: #fcfcfc;
-}
-
-.note-wrap {
-    position: relative;
-    margin: 0 auto;
-    padding: 10px 0 0;
-    width: 900px;
-}
-
 .grid {
     width: 254px;
     min-height: 100px;
@@ -251,6 +276,7 @@ body {
     -o-transition: top 1s ease, left 1s ease;
     -ms-transition: top 1s ease, left 1s ease;
 }
+
 .grid:hover {
     -moz-box-shadow: 0 0px 5px rgba(87, 74, 249, 0.67);
     -webkit-box-shadow: 0 0px 5px rgba(87, 74, 249, 0.67);
@@ -279,3 +305,451 @@ body {
 
 
 /* 博客 */
+
+
+/* 随笔内容 */
+
+.note-wrap {
+    position: relative;
+    margin: 0 auto;
+    padding: 10px 0 0;
+    width: 900px;
+}
+
+.note-entry {
+    width: 890px;
+    padding: 10px 10px 0 0;
+}
+
+.note-entry h1 {
+    font-size: 2em;
+}
+
+.note-entry h2 {
+    font-size: 1.5em;
+}
+
+.note-entry h3 {
+    font-size: 1.3em;
+}
+
+.note-entry h4 {
+    font-size: 1.2em;
+}
+
+.note-entry h5 {
+    font-size: 1em;
+}
+
+.note-entry h6 {
+    font-size: 1em;
+    color: #aaa;
+}
+
+.note-entry hr {
+    border: 1px dashed #ddd;
+}
+
+.note-entry strong {
+    font-weight: bold;
+}
+
+.note-entry em,
+.note-entry cite {
+    font-style: italic;
+}
+
+.note-entry sup,
+.note-entry sub {
+    font-size: 0.75em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+.note-entry sup {
+    top: -0.5em;
+}
+
+.note-entry sub {
+    bottom: -0.2em;
+}
+
+.note-entry small {
+    font-size: 0.85em;
+}
+
+.note-entry acronym,
+.note-entry abbr {
+    border-bottom: 1px dotted;
+}
+
+.note-entry ul,
+.note-entry ol,
+.note-entry dl {
+    line-height: 1.6em;
+}
+
+.note-entry ul ul,
+.note-entry ol ul,
+.note-entry ul ol,
+.note-entry ol ol {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.note-entry ul {
+    list-style: disc;
+    list-style-position: inside;
+}
+
+.note-entry ol {
+    list-style: decimal;
+    list-style-position: inside;
+}
+
+.note-entry dt {
+    font-weight: bold;
+    list-style-position: inside;
+}
+
+.note-entry {
+    color: #555;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.6em;
+}
+
+.note-entry:before,
+.note-entry:after {
+    content: "";
+    display: table;
+}
+
+.note-entry:after {
+    clear: both;
+}
+
+.note-entry p,
+.note-entry table {
+    margin: 1.6em 0;
+}
+
+.note-entry h1,
+.note-entry h2,
+.note-entry h3,
+.note-entry h4,
+.note-entry h5,
+.note-entry h6 {
+    font-weight: 600;
+}
+
+.note-entry h1,
+.note-entry h2,
+.note-entry h3,
+.note-entry h4,
+.note-entry h5,
+.note-entry h6 {
+    line-height: 1.3em;
+    margin: 1.3em 0;
+}
+
+.note-entry a {
+    color: #3b8dbd;
+    text-decoration: none;
+}
+
+.note-entry a:hover {
+    text-decoration: underline;
+}
+
+.note-entry a.fancybox {
+    display: block !important;
+}
+
+.note-entry ul,
+.note-entry ol,
+.note-entry dl {
+    margin-top: 1.6em;
+    margin-bottom: 1.6em;
+}
+
+.note-entry img,
+.note-entry video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+.note-entry iframe {
+    border: none;
+}
+
+.note-entry table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.note-entry th {
+    font-weight: 600;
+    border-bottom: 3px solid #ddd;
+    padding-bottom: 0.5em;
+}
+
+.note-entry td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.note-entry blockquote {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.4em;
+    margin: 1.6em 20px;
+    text-align: center;
+}
+
+.note-entry blockquote footer {
+    font-size: 14px;
+    margin: 1.6em 0;
+    font-family: "Titillium Web", "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", sans-serif;
+}
+
+.note-entry blockquote footer cite:before {
+    content: "—";
+    padding: 0 0.5em;
+}
+
+.note-entry .pullquote {
+    text-align: left;
+    width: 45%;
+    margin: 0;
+}
+
+.note-entry .pullquote.left {
+    margin-left: 0.5em;
+    margin-right: 1em;
+}
+
+.note-entry .pullquote.right {
+    margin-right: 0.5em;
+    margin-left: 1em;
+}
+
+.note-entry .caption {
+    color: #aaa;
+    display: block;
+    font-size: 0.9em;
+    margin-top: 0.5em;
+    position: relative;
+    text-align: center;
+}
+
+.note-entry .video-container {
+    position: relative;
+    padding-top: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.note-entry .video-container iframe,
+.note-entry .video-container object,
+.note-entry .video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+}
+
+.note-entry pre,
+.note-entry .highlight {
+    background: #2d2d2d;
+    margin: 0px;
+    padding: 15px 20px;
+    border-style: solid;
+    border-color: #ddd;
+    border-width: 1px 0;
+    overflow: auto;
+    color: #ccc;
+    line-height: 22.400000000000002px;
+}
+
+.note-entry .highlight .gutter pre,
+.note-entry .gist .gist-file .gist-data .line-numbers {
+    color: #666;
+    font-size: 0.85em;
+}
+
+.note-entry pre,
+.note-entry code {
+    font-size: 14px;
+    font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
+}
+
+.note-entry code {
+    background: #eaeaea;
+    text-shadow: 0 1px #fff;
+    padding: 0 0.3em;
+}
+
+.note-entry pre code {
+    background: none;
+    text-shadow: none;
+    padding: 0;
+}
+
+.note-entry .highlight pre {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.note-entry .highlight table {
+    margin: 0;
+    width: auto;
+}
+
+.note-entry .highlight td {
+    border: none;
+    padding: 0;
+}
+
+.note-entry .highlight figcaption {
+    font-size: 0.85em;
+    color: #999;
+    line-height: 1em;
+    margin-bottom: 1em;
+}
+
+.note-entry .highlight figcaption:before,
+.note-entry .highlight figcaption:after {
+    content: "";
+    display: table;
+}
+
+.note-entry .highlight figcaption:after {
+    clear: both;
+}
+
+.note-entry .highlight figcaption a {
+    float: right;
+}
+
+.note-entry .highlight .gutter pre {
+    text-align: right;
+    padding-right: 20px;
+}
+
+.note-entry .highlight .line {
+    height: 22.400000000000002px;
+}
+
+.note-entry .gist {
+    margin: 0 -20px;
+    border-style: solid;
+    border-color: #ddd;
+    border-width: 1px 0;
+    background: #2d2d2d;
+    padding: 15px 20px 15px 0;
+}
+
+.note-entry .gist .gist-file {
+    border: none;
+    font-family: "Source Code Pro", Consolas, Monaco, Menlo, Consolas, monospace;
+    margin: 0;
+}
+
+.note-entry .gist .gist-file .gist-data {
+    background: none;
+    border: none;
+}
+
+.note-entry .gist .gist-file .gist-data .line-numbers {
+    background: none;
+    border: none;
+    padding: 0 20px 0 0;
+}
+
+.note-entry .gist .gist-file .gist-data .line-data {
+    padding: 0 !important;
+}
+
+.note-entry .gist .gist-file .highlight {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.note-entry .gist .gist-file .gist-meta {
+    background: #2d2d2d;
+    color: #999;
+    font: 0.85em "Titillium Web", "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", sans-serif;
+    text-shadow: 0 0;
+    padding: 0;
+    margin-top: 1em;
+    margin-left: 20px;
+}
+
+.note-entry .gist .gist-file .gist-meta a {
+    color: #3b8dbd;
+    font-weight: normal;
+}
+
+.note-entry .gist .gist-file .gist-meta a:hover {
+    text-decoration: underline;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
+  .note-entry .img-wrap:before {
+    background: url("images/preloader@2x.gif") center center no-repeat, rgba(0,0,0,0.9);
+    -webkit-background-size: 24px 24px;
+    -moz-background-size: 24px 24px;
+    background-size: 24px 24px;
+  }
+}
+
+/* 随笔内容 */
+
+
+/* 边栏-标签 */
+
+.aside-tag {
+    width: 214px;
+    margin: 18px 8px 8px;
+    padding: 15px 25px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+    -moz-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+    -webkit-box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+}
+
+.aside-tag-title {
+    margin: 10px 0;
+    font-size: 15px;
+    color: #666;
+}
+
+.aside-tag-list {}
+
+.aside-tag-list li {
+    position: relative;
+    padding: 10px 0;
+    font-size: 15px;
+    border-bottom: 1px solid #e4e4e4;
+    color: #999;
+    cursor: pointer;
+}
+
+.aside-tag-list li:after {
+    position: absolute;
+}
+
+.aside-tag-list li:hover {
+    color: #333;
+}
+
+
+/* 边栏-标签 */
