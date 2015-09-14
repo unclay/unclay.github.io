@@ -236,6 +236,14 @@ body {
     padding-left: 60px;
 }
 
+.history p {
+    line-height: 28px;
+}
+
+.history > section {
+    padding: 20px 40px;
+}
+
 .history > ul > li {
     list-style: circle;
     margin: 10px 0;
