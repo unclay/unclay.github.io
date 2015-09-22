@@ -793,6 +793,9 @@ body {
 
 
 /* 新列表 */
+.note-tag {
+    border-bottom: 1px solid #ddd;
+}
 .every-year {
 }
 .every-year > li {

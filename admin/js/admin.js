@@ -146,7 +146,7 @@ define(function(require, exports, module){
 				content: $("#JS_content").val(),
 				thumbnail: $("#JS_file_thumbnail").val(),
 				seo_title: $("#JS_seoTitle").val(),
-				seo_keyword: $("#JS_seoKeyword").val(),
+				seo_keywords: $("#JS_seoKeywords").val(),
 				seo_description: $("#JS_seoDescription").val(),
 				seo_url: $("#JS_seoUrl").val(),
 				tag: tag
