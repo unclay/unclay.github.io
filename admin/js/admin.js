@@ -1,10 +1,32 @@
 define(function(require, exports, module){
+	Date.prototype.Format = function(fmt) {
+		var week = ['日','一','二','三','四','五','六'];
+		var o = {
+			"M+": this.getMonth() + 1, //月份 
+			"d+": this.getDate(), //日 
+			"h+": this.getHours(), //小时 
+			"m+": this.getMinutes(), //分 
+			"s+": this.getSeconds(), //秒 
+			"A": this.getHours() < 12 ? "上午" : "下午", //上下午
+			"W": week[parseInt(this.getDay(),10)], // 星期
+			"q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+			"S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+	    for (var k in o)
+		 	if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+	    return fmt;
+	}
+
 	var $ = require("jquery");
 	var Handlebars = require("handlebarser/1.3.0/index");
 	var Config = require("site-config/1.0.0/index");
 	var Url = require("url/1.2.0/url");
 
 	var url = new Url(window.location.href);
+	Handlebars.registerHelper("format", function(timestamp, format){
+		return new Date(timestamp*1000).Format(format);
+	});
 	Handlebars.registerHelper("getStatus", function(status){
 		return status === 1 ? "启用": "停用";
 	});
