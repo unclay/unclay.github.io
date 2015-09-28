@@ -9,17 +9,26 @@ nav,
 footer,
 a {
     display: block;
+    text-decoration: none;
 }
 
-a {
-    text-decoration: none;
+body {
+    font: 12px tahoma, 'Hiragino Sans GB', 'Wenquanyi Micro Hei', '\5FAE\8F6F\96C5\9ED1', Arial, Verdana, sans-serif;
 }
 
 ul li {
     list-style: none;
+    text-align: left;
 }
 
-body {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h7 {
+    font-weight: 100;
 }
 
 @font-face {
@@ -426,7 +435,7 @@ body {
 .note-entry {
     color: #555;
     font-size: 18px;
-    font-weight: 300;
+    font-weight: 100;
     line-height: 1.6em;
 }
 
@@ -451,7 +460,6 @@ body {
 .note-entry h4,
 .note-entry h5,
 .note-entry h6 {
-    font-weight: 600;
 }
 
 .note-entry h1,
@@ -465,6 +473,7 @@ body {
 }
 
 .note-entry a {
+    display: inline;
     color: #3b8dbd;
     text-decoration: none;
 }
@@ -503,7 +512,6 @@ body {
 }
 
 .note-entry th {
-    font-weight: 600;
     border-bottom: 3px solid #ddd;
     padding-bottom: 0.5em;
 }
@@ -712,24 +720,30 @@ body {
     text-decoration: underline;
 }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-device-pixel-ratio: 1.5) {
-  .note-entry .img-wrap:before {
-    background: url("images/preloader@2x.gif") center center no-repeat, rgba(0,0,0,0.9);
-    -webkit-background-size: 24px 24px;
-    -moz-background-size: 24px 24px;
-    background-size: 24px 24px;
-  }
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
+    .note-entry .img-wrap:before {
+        background: url("images/preloader@2x.gif") center center no-repeat, rgba(0, 0, 0, 0.9);
+        -webkit-background-size: 24px 24px;
+        -moz-background-size: 24px 24px;
+        background-size: 24px 24px;
+    }
 }
+
 
 /* 随笔内容 */
 
+
 /* 随笔标题和时间 */
+
 .note-wrap > h2 {
     font-size: 38px;
     color: #555;
     line-height: 86px;
     height: 70px;
 }
+
 .note-wrap > time {
     font-size: 14px;
     text-transform: uppercase;
@@ -738,6 +752,7 @@ body {
     text-shadow: 0 1px #fff;
     padding-left: 3px;
 }
+
 
 /* 边栏-标签 */
 
@@ -768,6 +783,7 @@ body {
     color: #777;
     cursor: pointer;
 }
+
 .aside-tag-list .item i,
 .aside-tag-list .item span {
     color: #ccc;
@@ -791,16 +807,16 @@ body {
 /* 边栏-标签 */
 
 
-
 /* 新列表 */
+
 .note-tag {
     border-bottom: 1px solid #ddd;
 }
-.every-year {
-}
-.every-year > li {
 
-}
+.every-year {}
+
+.every-year > li {}
+
 .every-year > li > h3 {
     display: block;
     line-height: 48px;
@@ -808,29 +824,33 @@ body {
     color: #666;
     padding-left: 34px;
 }
-.every-item {
 
-}
+.every-item {}
+
 .every-item:after {
     display: table;
     content: "";
     clear: both;
     visibility: hidden;
 }
+
 .every-item > li {
     float: left;
     width: 50%;
     height: 230px;
     border-bottom: 1px solid #ddd;
 }
+
 .every-item > li section {
     padding: 30px 0 0 30px;
 }
+
 .every-item > li section time {
     color: #bbb;
     text-align: 5px;
     font-size: 14px;
 }
+
 .every-item > li section .title {
     color: #444;
     font-size: 22px;
@@ -838,63 +858,77 @@ body {
     line-height: 48px;
     overflow: hidden;
 }
+
 .every-item > li section .title:hover {
     color: #519be5;
 }
-.every-item > li section .tag,
 
+.every-item > li section .tag,
 .every-item > li section .content {
     line-height: 26px;
     color: #aaa;
     text-indent: 2px;
 }
 
+.every-item > li section .tag {
+    display: inline-block;
+    font-size: 20px;
+    padding-right: 5px;
+    font-weight: 100;
+    color: #519be5;
+}
+
+
 /* 子导航 */
+
 .subnav {
     padding: 10px 0 0 0px;
-    font-weight: 700;
+    font-weight: 100;
     color: #333;
     line-height: 50px;
     border-bottom: 1px solid #eee;
 }
+
 .subnav > .tag {
     display: inline;
     font-size: 30px;
-    font-weight: 700;
+    font-weight: 100;
     color: #519be5;
 }
+
 .subnav .iconfont {
     position: relative;
     top: -2px;
     padding-right: 5px;
 }
+
 .subnav-year {
     padding: 10px 0 0 0px;
-    font-weight: 700;
+    font-weight: 100;
     color: #333;
     line-height: 50px;
     border-bottom: 1px solid #eee;
 }
+
 .subnav-year > .tag {
     display: inline;
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 100;
     color: #519be5;
 }
+
 .subnav-year .iconfont {
     position: relative;
     top: -2px;
     padding-right: 5px;
 }
+
+
 /* 子导航 */
 
 
-
-
-
-
-
 /* media query */
+
 @media only screen and (min-height: 700px) {
     body {
         margin-top: 50px;
