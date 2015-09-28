@@ -842,12 +842,7 @@ body {
     color: #519be5;
 }
 .every-item > li section .tag,
-.subnav > .tag {
-    display: inline;
-    font-size: 16px;
-    font-weight: 700;
-    color: #519be5;
-}
+
 .every-item > li section .content {
     line-height: 26px;
     color: #aaa;
@@ -863,9 +858,30 @@ body {
     border-bottom: 1px solid #eee;
 }
 .subnav > .tag {
+    display: inline;
     font-size: 30px;
+    font-weight: 700;
+    color: #519be5;
 }
 .subnav .iconfont {
+    position: relative;
+    top: -2px;
+    padding-right: 5px;
+}
+.subnav-year {
+    padding: 10px 0 0 0px;
+    font-weight: 700;
+    color: #333;
+    line-height: 50px;
+    border-bottom: 1px solid #eee;
+}
+.subnav-year > .tag {
+    display: inline;
+    font-size: 22px;
+    font-weight: 700;
+    color: #519be5;
+}
+.subnav-year .iconfont {
     position: relative;
     top: -2px;
     padding-right: 5px;
