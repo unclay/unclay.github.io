@@ -57,6 +57,10 @@ define(function(require, exports, module){
 		}
 		return html;
 	});
+	Handlebars.registerHelper("getFirstByArray", function(arr, key){
+		console.log(arr,key);
+		return !!arr[0] ? (!!key ? arr[0][key] : arr[0]) : '';
+	});
 
 	var G_pageType = window.location.href.match(/admin(\/\w*)+/g)[0];
 
@@ -166,7 +170,7 @@ define(function(require, exports, module){
 				title: $("#JS_title").val(),
 				intro: $("#JS_intro").val(),
 				content: $("#JS_content").val(),
-				thumbnail: $("#JS_file_thumbnail").val(),
+				thumbnail: $("#JS_thumbnail").val(),
 				seo_title: $("#JS_seoTitle").val(),
 				seo_keywords: $("#JS_seoKeywords").val(),
 				seo_description: $("#JS_seoDescription").val(),
