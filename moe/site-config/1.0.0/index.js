@@ -13,6 +13,12 @@ define(function(require, exports, module) {
                             window.location.href.indexOf("home.com") >= 0 ? "http://source.home.com": "http://localhost:8011";
                 }());
                 break;
+            case "www":
+                return (function() {
+                    return window.location.href.indexOf("unclay.com") >= 0 ? "http://www.unclay.com": 
+                            window.location.href.indexOf("home.com") >= 0 ? "http://www.home.com": "http://localhost:8011";
+                }());
+                break;
             default:
                 console.error("getSiteUrl参数不能为空");
         }

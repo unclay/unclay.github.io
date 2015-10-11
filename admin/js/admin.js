@@ -58,7 +58,6 @@ define(function(require, exports, module){
 		return html;
 	});
 	Handlebars.registerHelper("getFirstByArray", function(arr, key){
-		console.log(arr,key);
 		return !!arr[0] ? (!!key ? arr[0][key] : arr[0]) : '';
 	});
 
@@ -213,6 +212,7 @@ define(function(require, exports, module){
 					$("#JS_form").html( Handlebars.compile(tpl, { noEscape: true })(data.data) );
 					setEventNoteUpdate();
 					setThumbnail();
+					setEventCommon();
 					new Thumbnail({ id: "JS_select_thumbnail" });
 				});
 				
@@ -222,6 +222,12 @@ define(function(require, exports, module){
 				console.log(data);
 			}
 		});
+
+		function setEventCommon(){
+			$("#JS_openUrl").on("click", function(){
+				window.open( Config.getSiteUrl("www") + "/note/" + $("#JS_seoUrl").val() );
+			});
+		}
 		
 		function setEventNoteUpdate(){
 			$("#JS_submit").on("click", function(e){
@@ -381,15 +387,22 @@ define(function(require, exports, module){
 			e.preventDefault();
 		});
 	}
-
-	if( G_pageType === "admin/note" ){
-		
-	} else if( G_pageType === "admin/note/insert" ){
-		
-	} else if( G_pageType === "admin/note/update" ){
-		
-		
-	} else if( G_pageType === "admin/tag" ){
-		
+	exports.layout = function(){
+		$.ajax({
+			url: Config.getSiteUrl("api")+"/api/v1/member",
+			type: "GET",
+			data: {},
+			xhrFields: {
+				withCredentials:true
+			},
+			success: function(data){
+				if( data.code == 0 ){
+					$("#JS_username").html(data.data.showname);
+				}
+			},
+			error: function(data){
+				console.log(data);
+			}
+		});
 	}
 });

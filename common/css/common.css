@@ -121,39 +121,39 @@ h7 {
     color: #000;
 }
 
-.power-box > li.power-type-0 {
+.power-box > li:nth-child(9n+1) {
     background-color: #ba296b;
 }
 
-.power-box > li.power-type-1 {
+.power-box > li:nth-child(9n+2) {
     background-color: #00954f;
 }
 
-.power-box > li.power-type-2 {
+.power-box > li:nth-child(9n+3) {
     background-color: #e72520;
 }
 
-.power-box > li.power-type-3 {
+.power-box > li:nth-child(9n+4) {
     background-color: #fbc400;
 }
 
-.power-box > li.power-type-4 {
+.power-box > li:nth-child(9n+5) {
     background-color: #db4f2e;
 }
 
-.power-box > li.power-type-5 {
+.power-box > li:nth-child(9n+6) {
     background-color: #e7c7a7;
 }
 
-.power-box > li.power-type-6 {
+.power-box > li:nth-child(9n+7) {
     background-color: #877610;
 }
 
-.power-box > li.power-type-7 {
+.power-box > li:nth-child(9n+8) {
     background-color: #c07679;
 }
 
-.power-box > li.power-type-8 {
+.power-box > li:nth-child(9n+9) {
     background-color: #671f54;
 }
 
@@ -221,12 +221,16 @@ h7 {
 
 
 /* 网站历程 */
-
+.wrap-history {
+    padding: 20px 0;
+    background-color: #fcfcfc;
+}
 .history {
     width: 1200px;
-    margin: 20px auto;
+    margin: 0 auto;
     padding: 10px;
     box-shadow: 0 0 2px #252525;
+    background-color: #fff;
 }
 
 .history > h2 {
