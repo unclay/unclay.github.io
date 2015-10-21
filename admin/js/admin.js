@@ -105,6 +105,30 @@ define(function(require, exports, module){
         });
 	};
 
+	function setNotePic(){
+		$("#JS_fileNotePic").on("change", function(){
+            var thumbnailForm = new FormData();
+            thumbnailForm.append("file",$(this)[0].files[0]);
+            thumbnailForm.append("place", "note");
+            //thumbnailForm.append("id", );
+            $.ajax({
+                cache: false,
+                url: Config.getSiteUrl("api")+"/api/v1/file",
+                type: "POST",
+                data: thumbnailForm,
+                contentType: false,
+                processData: false,
+                success: function(data){
+                    console.log(data);
+                    
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+        });
+	}
+
 	function Thumbnail(opt){
 		this.container = $("#"+opt.id);
 		this.container.on("click", function(e){
@@ -212,10 +236,10 @@ define(function(require, exports, module){
 					$("#JS_form").html( Handlebars.compile(tpl, { noEscape: true })(data.data) );
 					setEventNoteUpdate();
 					setThumbnail();
+					setNotePic();
 					setEventCommon();
 					new Thumbnail({ id: "JS_select_thumbnail" });
 				});
-				
 			},
 			error: function(data){
 				$("#JS_form").html(JSON.stringify(data));
