@@ -167,7 +167,9 @@ define(function(require, exports, module){
 		$.ajax({
 			url: Config.getSiteUrl("api")+"/api/v1/note",
 			type: "GET",
-			data: {},
+			data: {
+				limit: 100
+			},
 			success: function(data){
 				var tpl = $("#JS_tbody_tpl").html();
 				$("#JS_tbody").html( Handlebars.compile(tpl, { noEscape: true })(data.data.list) );
