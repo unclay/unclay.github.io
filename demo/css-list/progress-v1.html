@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no" />
+  <title>模拟进度条v1</title>
+  <script type="text/javascript">  
+    (function(scope){
+      // document.body.innerHTML = window.innerWidth;
+      var ua = navigator.userAgent.toLocaleLowerCase();
+      var eventName = 'onorientationchange' in scope ? 'orientationchange' : 'resize';
+      var howLong = /chrome|firefox|ucbrowser|mqqbrowser/.test(ua) || (/safari/.test(ua) && /iphone/.test(ua)) ? 0 : 300;
+      document.documentElement.style.fontSize = (scope.innerWidth / 720 * 40) + 'px';
+      scope.addEventListener(eventName, function(){
+        clearTimeout(scope.orientationChangedTimeout);
+        scope.orientationChangedTimeout = setTimeout(function(){
+          document.documentElement.style.fontSize = (scope.innerWidth / 720 * 40) + 'px';
+        }, howLong);
+      }, false);
+    }(window));
+  </script>
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    .progress {
+      position: relative;
+      display: block;
+      margin: 1.65rem auto 0;
+      width: 14.5rem;
+      height: 1rem;
+      background-color: #fff;
+      border-radius: 1rem;
+      -webkit-border-radius: 1rem;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+      -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+    }
+    .progress .process-bg {
+    position: absolute;
+    top: 50%;
+    left: 0.275rem;
+    margin-top: -0.2875rem;
+    width: 14rem;
+    height: 0.5rem;
+    border-top: 0.075rem solid #181515;
+    background-color: #312a2a;
+    border-radius: 0.575rem;
+    -webkit-border-radius: 0.575rem
+    }
+
+    .progress .process-inner {
+      position: absolute;
+      top: 50%;
+      left: 0.225rem;
+      margin-top: -0.375rem;
+      width: 14.1rem;
+      height: 0.7rem;
+    }
+
+    .progress .process-bar {
+      position: relative;
+      height: 100%;
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAARVBMVEX/UFD/9Wf/nFr/X1L/VVH/tV7/3mT/7Gb/g1f/4WT/y2H/hlj/b1T/7Wb/62b/zmH/yGH/sV3/clX/bFT/z2L/iVj/cFTAK39LAAAAY0lEQVQoz8XPOQ6AMBBD0ckOIezL/Y9KiZ1ihBAIt18unnihTeZaK7zGwHZuPkLbhGfxuHBzA7QgvBla77itBmZFYXiF0SmM8XdG/pxxVIykMAK0VDHKXUZ8ysgao7zEEIVRTiOCA55koTcdAAAAAElFTkSuQmCC) repeat-x;
+      background-size: auto 100%;
+      border-radius: 0.7rem;
+      -webkit-border-radius: 0.7rem;
+      box-shadow: 0 1px 0 0 rgba(0,0,0,0.2);
+      -webkit-box-shadow: 0 1px 0 0 rgba(0,0,0,0.2);
+      animation: loading 14s linear 0s infinite normal;
+      -webkit-animation: loading 14s linear 0s infinite normal
+    }
+  
+    .progress .process-bar .process-inner {
+      width: 14.1rem;
+    }
+  
+    .progress .process-bar .process-value {
+      position: absolute;
+      top: -1.5rem;
+      right: -0.45rem;
+      width: 1rem;
+      height: 0.75rem;
+      font-size: 0.45rem;
+      color: #000;
+    }
+  
+    .progress .process-bar .process-value>i {
+      position: relative;
+      left: 50%;
+      margin-left: -0.2rem;
+      display: block;
+      width: 0;
+      height: 0;
+      border-left: 0.2rem solid transparent;
+      border-right: 0.2rem solid transparent;
+      border-top: 0.3rem solid #ff5050
+    }
+  
+    .progress .process-bar .process-value>span {
+      display: block;
+      text-align: center
+    }
+  
+    .progress .process-bar.process-end {
+      width: 14.1rem;
+      animation: normal;
+      -webkit-animation: normal
+    }
+  
+    .progress .process-max {
+      position: absolute;
+      bottom: -1.4rem;
+      right: -0.2rem;
+      width: 1rem;
+      height: 0.75rem;
+      font-size: 0.45rem;
+      color: #000
+    }
+
+    .progress .process-max>i {
+      position: relative;
+      left: 50%;
+      margin-left: -0.2rem;
+      display: block;
+      width: 0;
+      height: 0;
+      border-left: 0.2rem solid transparent;
+      border-right: 0.2rem solid transparent;
+      border-bottom: 0.3rem solid #ff5050
+    }
+  
+    .progress .process-max>span {
+      display: block;
+      text-align: center;
+      line-height: 0.7rem;
+    }
+
+    @-webkit-keyframes loading {
+      from {
+        background-position: 0;
+      }      
+      to {
+        background-position: 14rem;
+      }
+    }
+    
+    @-keyframes loading {
+      from {
+        background-position: 0;
+      }
+  
+      to {
+        background-position: 14rem;
+      }
+    }
+    .css-title {
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h3 class="css-title">专为移动端而做</h3>
+  <div class="progress">
+    <div class="process-bg"></div>
+    <div class="process-inner">
+      <div class="process-bar" style="width: 55%;">
+        <p class="process-value"><span>11</span><i></i></p>
+      </div>
+    </div>
+    <p class="process-max"><i></i><span>20</span></p
+  </div>
+</body>
+</html>
