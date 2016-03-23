@@ -80,7 +80,8 @@ h7 {
 }
 
 .header-box {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -1007,4 +1008,11 @@ h7 {
         width: 700px;
     }
     .aside-tag {}
+}
+
+/* 移动端 */
+@media only screen and (max-width: 320px){
+    .nav-a {
+        width: 100%;
+    }
 }

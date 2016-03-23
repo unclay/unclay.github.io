@@ -31,10 +31,10 @@ define(function(require, exports, module){
 		return status === 1 ? "启用": "停用";
 	});
 	Handlebars.registerHelper("getImg", function(filename){
-		return Config.getSiteUrl("api")+"/thumbnail/"+filename;
+		return Config.getSiteUrl("www")+"/thumbnail/"+filename;
 	});
 	Handlebars.registerHelper("getTImg", function(filename){
-		return Config.getSiteUrl("api")+"/t_thumbnail/"+filename;
+		return Config.getSiteUrl("www")+"/t_thumbnail/"+filename;
 	});
 	Handlebars.registerHelper("setTag", function(tag, arr){
 		var html = '';
@@ -65,7 +65,7 @@ define(function(require, exports, module){
 
 	function getValueTag(cb, op){
 		$.ajax({
-			url: Config.getSiteUrl("api")+"/api/v1/tag",
+			url: Config.getSiteUrl("www")+"/api/tag",
 			type: "GET",
 			data: op || {},
 			success: function(data){
@@ -84,7 +84,7 @@ define(function(require, exports, module){
             //thumbnailForm.append("id", );
             $.ajax({
                 cache: false,
-                url: Config.getSiteUrl("api")+"/api/v1/file",
+                url: Config.getSiteUrl("www")+"/api/file",
                 type: "POST",
                 data: thumbnailForm,
                 contentType: false,
@@ -93,7 +93,7 @@ define(function(require, exports, module){
                     console.log(data);
                     if( data.code === 0 ){
                     	$("#JS_thumbnail").val(data.data.filename);
-                    	$("#JS_img_thumbnail").attr("src", Config.getSiteUrl("api")+"/thumbnail/"+data.data.filename).show();
+                    	$("#JS_img_thumbnail").attr("src", Config.getSiteUrl("www")+"/thumbnail/"+data.data.filename).show();
                     } else {
                     	alert( data.message );
                     }
@@ -113,7 +113,7 @@ define(function(require, exports, module){
             //thumbnailForm.append("id", );
             $.ajax({
                 cache: false,
-                url: Config.getSiteUrl("api")+"/api/v1/file",
+                url: Config.getSiteUrl("www")+"/api/file",
                 type: "POST",
                 data: thumbnailForm,
                 contentType: false,
@@ -133,7 +133,7 @@ define(function(require, exports, module){
 		this.container = $("#"+opt.id);
 		this.container.on("click", function(e){
 			$.ajax({
-				url: Config.getSiteUrl("api")+"/api/v1/file",
+				url: Config.getSiteUrl("www")+"/api/file",
 				type: "GET",
 				data: {},
 				success: function(data){
@@ -165,7 +165,7 @@ define(function(require, exports, module){
 
 	exports.note = function(){
 		$.ajax({
-			url: Config.getSiteUrl("api")+"/api/v1/note",
+			url: Config.getSiteUrl("www")+"/api/note",
 			type: "GET",
 			data: {
 				limit: 100
@@ -203,7 +203,7 @@ define(function(require, exports, module){
 				tag: tag
 			};
 			$.ajax({
-				url: Config.getSiteUrl("api")+"/api/v1/note",
+				url: Config.getSiteUrl("www")+"/api/note",
 				type: "POST",
 				data: json,
 				xhrFields: {
@@ -227,7 +227,7 @@ define(function(require, exports, module){
 	}
 	exports.noteUpdate = function(){
 		$.ajax({
-			url: Config.getSiteUrl("api")+"/api/v1/note/" + url.getParam("id"),
+			url: Config.getSiteUrl("www")+"/api/note/" + url.getParam("id"),
 			type: "GET",
 			data: {},
 			success: function(data){
@@ -276,7 +276,7 @@ define(function(require, exports, module){
 				};
 				console.log(json);
 				$.ajax({
-					url: Config.getSiteUrl("api")+"/api/v1/note",
+					url: Config.getSiteUrl("www")+"/api/note",
 					type: "PUT",
 					data: json,
 					xhrFields: {
@@ -299,7 +299,7 @@ define(function(require, exports, module){
 	}
 	exports.tag = function(){
 		$.ajax({
-			url: Config.getSiteUrl("api")+"/api/v1/tag",
+			url: Config.getSiteUrl("www")+"/api/tag",
 			type: "GET",
 			data: {
 				status: "0,1"
@@ -336,7 +336,7 @@ define(function(require, exports, module){
 					};
 				}
 				$.ajax({
-					url: Config.getSiteUrl("api")+"/api/v1/tag",
+					url: Config.getSiteUrl("www")+"/api/tag",
 					type: "PUT",
 					data: json,
 					success: function(data){
@@ -366,7 +366,7 @@ define(function(require, exports, module){
 					_id: $tr.find("input[name=_id]").val()
 				};
 				$.ajax({
-					url: Config.getSiteUrl("api")+"/api/v1/tag",
+					url: Config.getSiteUrl("www")+"/api/tag",
 					type: "DELETE",
 					data: json,
 					success: function(data){
@@ -392,7 +392,7 @@ define(function(require, exports, module){
 				type: "tag"
 			};
 			$.ajax({
-				url: Config.getSiteUrl("api")+"/api/v1/tag",
+				url: Config.getSiteUrl("www")+"/api/tag",
 				type: "POST",
 				data: json,
 				xhrFields: {
@@ -415,7 +415,7 @@ define(function(require, exports, module){
 	}
 	exports.layout = function(){
 		$.ajax({
-			url: Config.getSiteUrl("api")+"/api/v1/member",
+			url: Config.getSiteUrl("www")+"/api/member",
 			type: "GET",
 			data: {},
 			xhrFields: {
