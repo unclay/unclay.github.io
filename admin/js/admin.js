@@ -302,7 +302,8 @@ define(function(require, exports, module){
 			url: Config.getSiteUrl("www")+"/api/tag",
 			type: "GET",
 			data: {
-				status: "0,1"
+				status: "0,1",
+				limit: 100
 			},
 			success: function(data){
 				var tpl = $("#JS_tbody_tpl").html();

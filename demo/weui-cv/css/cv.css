@@ -1,0 +1,25 @@
+@charset 'utf-8';
+.cl_avatar {
+	display: block;
+	margin: 0 auto;
+	padding: 30px 0 0;
+	width: 22%;
+	max-width: 100px;
+	-webkit-border-radius: 100%;
+	border-radius: 100%;
+}
+.cl_url_address_icon {
+	margin-right: 5px;
+	width: 20px;
+	height: 20px;
+	-webkit-border-radius: 100%;
+	border-radius: 100%;
+}
+.cl_bd {
+	margin-top: 15px;
+	padding: 0 15px;
+}
+.cl_ft {
+	margin: 15px 0;
+	padding: 0 15px;
+}
