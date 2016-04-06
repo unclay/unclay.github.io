@@ -17,11 +17,16 @@
   },
   "homepage": "https://github.com/unclay/unclay.github.io",
   "dependencies": {
-    "express": "^4.13.4",
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "co": "^4.6.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-jshint": "^1.11.2",
     "gulp-uglify": "^1.2.0",
-    "gulp-watch": "^4.3.4"
+    "gulp-watch": "^4.3.4",
+    "qiniu": "^6.1.9",
+    "thunkify": "^2.1.2"
   }
 }
