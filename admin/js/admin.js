@@ -63,13 +63,18 @@ define(function(require, exports, module){
 
 	var G_pageType = window.location.href.match(/admin(\/\w*)+/g)[0];
 
-	function getValueTag(cb, op){
+	function getTag(cb, op){
 		$.ajax({
 			url: Config.getSiteUrl("www")+"/api/tag",
 			type: "GET",
 			data: op || {},
 			success: function(data){
-				cb && cb(data);
+				if( data.code === 0 ) {
+					cb && cb(data);
+				} else {
+					console.error(data);
+				}
+				
 			},
 			error: function(data){
 				console.log(data);
@@ -164,25 +169,108 @@ define(function(require, exports, module){
 	}
 
 	exports.note = function(){
-		$.ajax({
-			url: Config.getSiteUrl("www")+"/api/note",
-			type: "GET",
-			data: {
-				limit: 100
-			},
-			success: function(data){
-				var tpl = $("#JS_tbody_tpl").html();
-				$("#JS_tbody").html( Handlebars.compile(tpl, { noEscape: true })(data.data.list) );
-			},
-			error: function(data){
-				console.log(data);
-			}
+		var pager = new PagerView('JS_pagerview');
+		pager.item = 3;
+		pager.index = 1;
+		pager.style = ["首页", "<", ">", "尾页"];
+        pager.preHtml = function() {
+            if (pager.index == pager.pageCount) return '<div class="pageview-main">';
+            else return '<a class="pageview-box pageview-top-next" href="javascript:///' + (parseInt(pager.index) + 1) + '">下一页<span>&gt;</span></a><div class="pageview-main">';
+        }
+        pager.appendHtml = function() {
+            if (pager.pageCount > 1) {
+                var str = '';
+                str += '<input type="text" id="pageInput" value="1" class="pageview-box pageview-input"/>';
+                str += '<a id="pageTrue" href="javascript:///1"><span class="pageview-box pageview-true">跳转</span></a>';
+                str += "</div>";
+                return str;
+            } else return "</div>";
+        };
+        pager.appendFn = function() {
+            var self = this;
+            var pi = document.getElementById("pageInput");
+            var pt = document.getElementById("pageTrue");
+            if (pi) {
+                pi.onkeyup = function() {
+                    var val = this.value;
+                    val = val.replace(/[^0-9]/g, ''); // 去除非数字
+                    val = val.replace(/^0*/g, ''); // 首位不能为0
+                    val = val > self.pageCount ? self.pageCount : val; // 不能大于总页数
+                    this.value = val;
+                    pt.href = "javascript:///" + val; // 设置点击页面地址
+                }
+                pi.onblur = function() {
+                    var val = this.value;
+                    val = val == '' ? 1 : val; // 首位不能为空
+                    this.value = val;
+                    pt.href = "javascript:///" + val;
+                }
+            }
+
+        };
+		pager.onclick = function(index) {
+		    getNoteByApi(function(data){
+		    	var tpl = $("#JS_tbody_tpl").html();
+		    	$("#JS_tbody").html( Handlebars.compile(tpl, { noEscape: true })(data.data.list) );
+		    });
+		};
+		function getNoteByApi(cb){
+			$.ajax({
+				url: Config.getSiteUrl("www")+"/api/note",
+				type: "GET",
+				data: {
+					limit: pager.item,
+					page: pager.index,
+					tag: $('.search-sort').val()
+				},
+				success: function(data){
+					if( data.code === 0 ){
+						cb && cb(data);
+					} else {
+						console.error(data);
+					}
+				},
+				error: function(data){
+					console.log(data);
+				}
+			});
+		}
+
+		
+		getNoteByApi(function(data){
+			var tpl = $("#JS_tbody_tpl").html();
+			$("#JS_tbody").html( Handlebars.compile(tpl, { noEscape: true })(data.data.list) );
+			pager.itemCount = data.data.count;
+	        pager.render();
 		});
+
+		getTag(function(data){
+
+			var list = data.data.list;
+			var options = '<option value="">全部</option>';
+			for(var i=0; i<list.length; i++){
+				options += '<option value="' + list[i].name + '">' + list[i].name + '</option>'
+			}
+			$('.search-sort').html( options );
+			$('.search-sort').on('change', function(){
+				getNoteByApi(function(data){
+					pager.itemCount = data.data.count;
+					pager.index = 1;
+			        pager.render();
+					var tpl = $("#JS_tbody_tpl").html();
+					$("#JS_tbody").html( Handlebars.compile(tpl, { noEscape: true })(data.data.list) );
+				});
+			});
+		});
+		
+		
+        
+        
 	}
 
 	exports.noteInsert = function(){
 		new Thumbnail({ id: "JS_select_thumbnail" });
-		getValueTag(function(data){
+		getTag(function(data){
 			$("#JS_tag").html( Handlebars.compile("{{setTag temp this}}", { noEscape: true })(data.data.list) );
 		});
 		$("#JS_submit").on("click", function(e){
@@ -231,7 +319,7 @@ define(function(require, exports, module){
 			type: "GET",
 			data: {},
 			success: function(data){
-				getValueTag(function(tag){
+				getTag(function(tag){
 					console.log(tag);
 					data.data.arrTag = tag.data.list;
 					var tpl = $("#JS_form_tpl").html();
@@ -432,4 +520,111 @@ define(function(require, exports, module){
 			}
 		});
 	}
+	function PagerView(id) {
+        var self = this;
+        this.id = id; // 接受分页渲染的id
+        this.wrap = null; // document.getElementById(id),获取id对象;
+        this.index = 1; // 当前页数，从1开始
+        this.item = 10; // 单页记录数
+        this.itemCount = 0; // 总记录数
+        this.maxButtons = 6; // 最大分页按钮数
+        this.pageCount = 0; // 总页数
+        this.style = ["首页", "上一页", "下一页", "尾页"]; // 自定义分页按钮文案
+        this.classList = [
+            "pageview-box", "pageview-a", "pageview-span",
+            "pageview-homepage", "pageview-pre",
+            "pageview-next", "pageview-endpage"
+        ]; // 自定义分页样式的类名class，pageview-box按钮初始化样式，pageview-a按钮可以点击样式，pageview-span按钮不可点击样式
+        /* 
+         * 外部onclick，处理实际需求事件
+         */
+        this.onclick = function(index) {};
+        /**
+         * 内部onclick，处理分页的渲染
+         */
+        this._onclick = function(index) {
+            self.index = index;
+            self.onclick(index);
+            self.render();
+        };
+        /**
+         * 额外叠加html代码和js代码
+         */
+        this.preHtml = function() {
+            return "";
+        }
+        this.appendHtml = function() {
+            return "";
+        }
+        this.appendFn = function() {
+            return "";
+        }
+        /**
+         * 分页逻辑计算层
+         */
+        this.calc = function() {
+            self.pageCount = parseInt(Math.ceil(self.itemCount / self.item));
+            self.index = parseInt(self.index);
+            self.index = self.index < 1 ? 1 : self.index; // 防止页数少于1
+            self.index = self.index > self.pageCount ? self.pageCount : self.index; // 防止页数大于总页数
+
+            for (var i = 0; i < self.classList.length; i++) {
+                self.classList[i] = " " + self.classList[i] + " ";
+            }
+        };
+        /**
+         * 分页渲染层
+         */
+        this.render = function() {
+            if (self.id != 'undefined') {
+                self.wrap = document.getElementById(self.id);
+            }
+            self.calc();
+            var html = self.preHtml();
+            var leftIndex = Math.max(1, self.index - Math.floor(parseInt(self.maxButtons - 1) / 2));
+            var rightIndex = Math.min(self.pageCount, leftIndex + self.maxButtons - 1);
+            leftIndex = Math.max(1, rightIndex - self.maxButtons + 1);
+            if (self.pageCount > 1) {
+                if (self.index != 1) {
+                    html += '<a class="' + self.classList[0] + self.classList[1] + self.classList[3] + '" href="javascript:///1">' + self.style[0] + '</a>' + '<a class="' + self.classList[0] + self.classList[1] + self.classList[4] + '" href="javascript:///' + (self.index - 1) + '">' + self.style[1] + '</a>';
+                    if (leftIndex > 1) {
+                        html += '<a class="' + self.classList[0] + self.classList[1] + '" href="javascript:///1">1...</a>';
+                    }
+                } else {
+                    html += '<span class="' + self.classList[0] + self.classList[2] + self.classList[3] + '">' + self.style[0] + '</span>' +
+                        '<span class="' + self.classList[0] + self.classList[2] + self.classList[4] + '">' + self.style[1] + '</span>';
+                }
+            }
+            if (self.pageCount > 1) {
+                for (var i = leftIndex; i <= rightIndex; i++) {
+                    if (i == self.index) html += '<span class="' + self.classList[0] + self.classList[2] + ' on">' + i + '</span>';
+                    else html += '<a class="' + self.classList[0] + self.classList[1] + '" href="javascript:///' + i + '">' + i + '</a>';
+                }
+            }
+            if (self.pageCount > 1) {
+                if (self.index != self.pageCount) {
+                    if (rightIndex < self.pageCount) {
+                        html += '<a class="' + self.classList[0] + self.classList[1] + '" href="javascript:///' + self.pageCount + '">...' + self.pageCount + '</a>';
+                    }
+                    html += '<a class="' + self.classList[0] + self.classList[1] + self.classList[5] + '" href="javascript:///' + (self.index + 1) + '">' + self.style[2] + '</a>' +
+                        '<a class="' + self.classList[0] + self.classList[1] + self.classList[6] + '" href="javascript:///' + self.pageCount + '">' + self.style[3] + '</a>';
+                } else {
+                    html += '<span class="' + self.classList[0] + self.classList[2] + self.classList[5] + '">' + self.style[2] + '</span>' +
+                        '<span class="' + self.classList[0] + self.classList[2] + self.classList[6] + '">' + self.style[3] + '</span>';
+                }
+            }
+            self.wrap.innerHTML = html + self.appendHtml();
+            var a_list = self.wrap.getElementsByTagName('a');
+            for (var i in a_list) {
+                a_list[i].onclick = function() {
+                    var index = this.getAttribute('href');
+                    if (index != "undefined" && index != "" && index.substr(0, 14) == "javascript:///") {
+                        index = this.getAttribute('href').replace('javascript:///', '');
+                        self._onclick(index);
+                    }
+                }
+                self.appendFn();
+            }
+        };
+    };
 });

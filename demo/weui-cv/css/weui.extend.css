@@ -1,0 +1,49 @@
+.weui_table {
+	display: block;
+	margin-top: 10px;
+    background-color: #FFFFFF;
+    overflow: hidden;
+}
+.weui_table_tr {
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	width: 100%;
+}
+.weui_table_tr:after {
+	content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid #D9D9D9;
+    color: #D9D9D9;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+}
+.weui_table_th {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    padding: 8px 0;
+    font-size: 14px;
+	color: #000;
+}
+.weui_table_td {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+	text-align: center;
+    padding: 8px 0;
+	font-size: 12px;
+	color: #888;
+}

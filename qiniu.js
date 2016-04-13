@@ -24,14 +24,16 @@ function uptoken(bucket, key) {
 }
 
 const C_dirs = 'admin common demo moe'.split(' ');
-
+var C_ignore = 'DS_Store \\.bak';
+C_ignore = new RegExp( C_ignore.replace(' ', '$|') + '$', 'gi' );
 function loop(path, cb){
 	co(function *(){
 		let stat = yield thunkify(fs.stat)(path);
 		if( stat.size === 0 ){
 			cb(null, yield thunkify(fs.readdir)(path));
 		} else {
-			cb(null, [path]);
+			console.log( path );
+			C_ignore.test(path) ? cb(null, []) : C_ignore.test(path);
 		}
 	}).catch(cb);
 }
@@ -42,9 +44,17 @@ function loopPath(paths, cb){
 		for(let item of paths){
 			let dirs = yield thunkify(fs.readdir)(item);
 			for(let filepath of dirs){
-				let stat = yield thunkify(fs.stat)(path.join(item, filepath));
+				let stat = yield thunkify(fs.stat)(path.join(item, filepath));				
 				if( stat.isFile() ){
-					statics.push(path.join(item, filepath));
+					if( filepath.match(/\.DS_Store/) ){
+						// console.log( stat.mtime.getTime() + 1111113*86400*1000 >= new Date().getTime() && !C_ignore.test(filepath), filepath );
+						// console.log( filepath );
+						// console.log( !C_ignore.test(filepath) );
+					}
+					if( ((stat.mtime.getTime() + 3*86400*1000) >= new Date().getTime()) && (!C_ignore.test(filepath)) ){
+						// console.log(stat.mtime.getTime() + 1111113*86400*1000 >= new Date().getTime() && !C_ignore.test(filepath) ,path.join(item, filepath) );
+						statics.push(path.join(item, filepath));
+					}
 				} else {
 					__paths.push(path.join(item, filepath));
 				}
@@ -62,13 +72,14 @@ co(function *(){
 	for(let i=0; i<C_dirs.length; i++){
 		C_dirs[i] = path.join(__dirname, C_dirs[i]);
 	}
-	// console.log( C_dirs );
+	console.log( C_dirs );
 	let paths = yield thunkify(loopPath)(C_dirs);
 	for(let item of paths){
-		let key = item.replace(__dirname + '\\', '').replace(/\\/gi, '/');
+		let key = item.replace(__dirname, '').replace(/\\/gi, '/').replace(/^\//, '');
 		let token = uptoken(bucket, key);
 		var extra = new qiniu.io.PutExtra();
 		var ret = (yield thunkify(qiniu.io.putFile)(token, key, item, extra))[0];
+		console.log( ret.key );
 	}
 	// var dirs = yield thunkify(fs.stat)('./common.qq');
 	// console.log(dirs);

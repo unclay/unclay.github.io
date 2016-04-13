@@ -143,3 +143,86 @@ input[type="checkbox"] { margin: 0 1px 0 10px; }
 .thumbnail-shade-box img.active { box-shadow: 0 0 10px #D002E0; position: relative; z-index: 2; }
 .btn-sure { height: 40px; line-height: 40px; text-align: center; font-size: 24px; background-color: #35CE73; }
 .btn-sure:hover { background-color: rgba(53, 206, 115, 0.78); cursor: pointer; }
+
+.pageview-main {
+  display: inline-block;
+}
+.pageview-box {
+  float: left; 
+  display: block;
+  margin: 0 0 0 5px;
+  height: 26px; 
+  line-height: 26px;
+  color: #333333;
+  background-color: rgb( 243, 243, 243 );
+  -moz-border-radius: 26px;
+  -webkit-border-radius: 26px;
+  border-radius: 26px;
+}
+.pageview-a { 
+  padding: 0 10px;  
+}
+.pageview-a:hover {
+  padding: 0 9px;
+  height: 24px;
+  line-height: 24px;
+  color: #ff7fa6;
+  border: 1px solid #ff7fa6;
+  background: #fff;
+  text-decoration: none;
+}
+.pageview-a-homepage, .pageview-a-endpage { display: none; }
+.pageview-span { 
+  padding: 0 10px; 
+}
+.pageview-span:hover { cursor: not-allowed; }
+.pageview-true { 
+  padding: 0 18px;
+}
+.pageview-span.on { color: #fff; background: #ff7fa6; }
+.pageview-input {
+  padding: 0;
+  width: 58px;
+  height: 24px;
+  line-height: 24px;
+  border: 1px solid #c8c8c8;
+  text-align: center;
+  background: #fff;
+}
+.pageview-homepage, .pageview-endpage { display: none; }
+.pageview-pre, .pageview-next {
+  font-size: 16px;
+  font-family: "Simsun";
+  font-weight: 700;
+}
+.pageview-span.pageview-pre, .pageview-span.pageview-next {
+  color: #999999;
+}
+.pageview-top-next {
+  display: block;
+  float: none;
+  height: 40px;
+  margin: 0 0 10px 0;
+  line-height: 40px;
+  color: #666666;
+  font-size: 16px;
+  text-align: center;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+.pageview-top-next span {
+  font-size: 18px;
+  font-family: "Simsun";
+  font-weight: 700;
+  padding: 0 0 0 5px;
+}
+.pageview-top-next:hover {
+  height: 38px;
+  line-height: 38px;
+  color: #ff7fa6;
+  border: 1px solid #ff7fa6;
+  background: #fff;
+  text-decoration: none;
+}
+
