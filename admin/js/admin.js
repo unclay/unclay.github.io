@@ -170,7 +170,7 @@ define(function(require, exports, module){
 
 	exports.note = function(){
 		var pager = new PagerView('JS_pagerview');
-		pager.item = 3;
+		pager.item = 10;
 		pager.index = 1;
 		pager.style = ["首页", "<", ">", "尾页"];
         pager.preHtml = function() {
