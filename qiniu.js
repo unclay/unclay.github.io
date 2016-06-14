@@ -74,6 +74,7 @@ co(function *(){
 	}
 	console.log( C_dirs );
 	let paths = yield thunkify(loopPath)(C_dirs);
+	console.log( paths );
 	for(let item of paths){
 		let key = item.replace(__dirname, '').replace(/\\/gi, '/').replace(/^\//, '');
 		let token = uptoken(bucket, key);

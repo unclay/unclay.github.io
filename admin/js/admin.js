@@ -168,7 +168,7 @@ define(function(require, exports, module){
 		});
 	}
 
-	exports.note = function(){
+	exports.note = function(){ 
 		var pager = new PagerView('JS_pagerview');
 		pager.item = 10;
 		pager.index = 1;
@@ -221,7 +221,8 @@ define(function(require, exports, module){
 				data: {
 					limit: pager.item,
 					page: pager.index,
-					tag: $('.search-sort').val()
+					tag: $('.search-sort').val(),
+          keyword: $('#JS_keyword').val()
 				},
 				success: function(data){
 					if( data.code === 0 ){
@@ -263,7 +264,16 @@ define(function(require, exports, module){
 			});
 		});
 		
-		
+		$('#JS_keysearch').on('click', function (e) {
+      console.log(1231)
+      getNoteByApi(function(data){
+        var tpl = $("#JS_tbody_tpl").html();
+        $("#JS_tbody").html( Handlebars.compile(tpl, { noEscape: true })(data.data.list) );
+        pager.itemCount = data.data.count;
+            pager.render();
+      });
+      e.preventDefault();
+    })
         
         
 	}
