@@ -23,7 +23,7 @@ function uptoken(bucket, key) {
   return putPolicy.token();
 }
 
-const C_dirs = 'admin common demo moe'.split(' ');
+const C_dirs = 'admin common demo moe dme'.split(' ');
 var C_ignore = 'DS_Store \\.bak';
 C_ignore = new RegExp( C_ignore.replace(' ', '$|') + '$', 'gi' );
 function loop(path, cb){
