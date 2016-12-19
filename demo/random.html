@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>抽奖</title>
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.0/weui.min.css">
+  </head>
+  <body>
+    <div id="JS_app">
+      <div class="weui-cells__title">选项</div>
+      <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+          <div class="weui-cell__hd">
+            <label for="" class="weui-label">人数</label>
+          </div>
+          <div class="weui-cell__bd">
+            <input type="number" class="weui-input" placeholder="参与人数" v-model="people">
+          </div>
+        </div>
+        <div class="weui-cell">
+          <div class="weui-cell__bd">是否重复</div>
+          <div class="weui-cell__ft">
+            <input type="checkbox" class="weui-switch" v-model="isRepeat">
+          </div>
+        </div>
+      </div>
+      <div class="weui-btn-area">
+        <a class="weui-btn weui-btn_primary" href="javascript:" @click="sure">抽取</a>
+      </div>
+      <div class="weui-cells__title">结果</div>
+      <div class="weui-cells weui-cells_form">
+        <div class="weui-cell">
+          <div class="weui-cell__bd">
+            <textarea readonly="readonly" class="weui-textarea" placeholder="请输入文本" :rows="result | resultRows">{{ result | result }}</textarea>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="dialog.switch" class="">
+        <div class="weui-mask" @click="dialog.switch = false"></div>
+        <div class="weui-dialog">
+          <div class="weui-dialog__hd"><strong class="weui-dialog__title">提示</strong></div>
+          <div class="weui-dialog__bd">{{ dialog.content }}</div>
+          <div class="weui-dialog__ft">
+            <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="dialog.switch = false">{{ dialog.btn }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script type="text/javascript" src="//cdn.bootcss.com/vue/2.1.6/vue.min.js"></script>
+    <script>
+      window.vm = new Vue({
+        el: '#JS_app',
+        data: {
+          people: 15,
+          isRepeat: false,
+          result: [],
+          random: [],
+          dialog: {
+            content: '',
+            btn: '确定',
+            switch: false
+          }
+        },
+        filters: {
+          result: function (arr) {
+            var text = ''
+            for (var i = 0; i < arr.length; i++) {
+              text += '第' + (i + 1) + '次：' + arr[i] + '\n'
+            }
+            return text
+          },
+          resultRows: function (arr) {
+            return arr.length < 3 ? 3 : arr.length
+          }
+        },
+        watch: {
+          people: function () {
+            this.random = []
+            this.result = []
+            for (var i = 1; i <= this.people; i++) {
+              this.random.push(i)
+            }
+          }
+        },
+        methods: {
+          alert: function (content) {
+            this.dialog.switch = true
+            this.dialog.content = content
+          },
+          sure: function () {
+            if (!this.isRepeat) {
+              var index = Math.floor(Math.random() * this.random.length)
+              this.result.push(this.random[index])
+            } else {
+              if (this.random.length === 1) {
+                return this.alert('随机数已被抽取完')
+              }
+              for (var i = 0; i < this.random.length; i++) {
+                for (var j = 0; j < this.result.length; j++) {
+                  if (this.random[i] === this.result[j]) {
+                    this.random.splice(i, 1)
+                  }
+                }
+              }
+              var index = Math.floor(Math.random() * this.random.length)
+              this.result.push(this.random[index])
+            }
+          }
+        },
+        mounted: function () {
+          for (var i = 1; i <= this.people; i++) {
+            this.random.push(i)
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
