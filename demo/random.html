@@ -90,7 +90,7 @@
             this.dialog.content = content
           },
           sure: function () {
-            if (!this.isRepeat) {
+            if (this.isRepeat) {
               var index = Math.floor(Math.random() * this.random.length)
               this.result.push(this.random[index])
             } else {
