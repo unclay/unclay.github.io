@@ -72,7 +72,8 @@
             return text
           },
           resultRows: function (arr) {
-            return arr.length < 3 ? 3 : arr.length
+            return arr.length < 3 ? 3 : 
+                    (arr.length > 10 ? 10 : arr.length)
           }
         },
         watch: {
