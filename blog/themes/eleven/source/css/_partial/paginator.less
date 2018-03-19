@@ -1,0 +1,25 @@
+.page-nav {
+  text-align: center;
+
+  .prev {
+    float: left;
+  }
+  .next {
+    float: right;
+  }
+  .extend {
+    &:hover {
+      color: @mainLinkColor;
+    }
+  }
+
+  .page-number {
+    padding: 6px 10px;
+    &.current {
+      color: @mainLinkColor;
+    }
+    &:hover {
+      color: @mainLinkColor;
+    }
+  }
+}

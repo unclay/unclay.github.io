@@ -1,0 +1,31 @@
+@import '_var';
+html {
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: @mainTextColor;
+}
+
+a {
+  color: @mainTextColor;
+  text-decoration: none;
+}
+h2 {
+  margin: 0;
+}
+
+.main {
+  max-width: 720px;
+  margin: 40px auto 0;
+}
+
+@import '_partial/header';
+@import '_partial/footer';
+@import 'index';
+@import '_partial/markdown';
+@import '_partial/paginator';
+@import '_partial/highlight';
+@import 'archive';

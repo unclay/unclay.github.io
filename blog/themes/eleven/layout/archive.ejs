@@ -1,0 +1,32 @@
+<section class="archive">
+  <h3 class="title-archive">导航</h3>
+  <ul class="archive-list">
+    <a class="archive-link" href="/archives/">All</a>，
+    <%- list_archives({
+      type: 'yearly',
+      style: 'unordered list',
+      transform(post, count) {
+        return post;
+      }
+    }) %>
+  </ul> 
+  <% var year%>
+  <% page.posts.each(function (post) { %>
+    <% post.year = date(post.date, "YYYY") %>
+    <% if (year > 0 && year !== post.year) { %>
+      </ul>
+    <% } %>
+    <% if (year !== post.year) { %>
+      <% year = post.year%>
+      <h3 class="title-archive"><%=post.year%></h3>
+      <ul class="archive-list">
+    <% } %>
+        <li class="post-item">
+          <span class="post-date"><%= date(post.date, "YYYY/MM/DD") %></span>&nbsp;
+          <a class="post-title" href="<%- url_for(post.path) %>"><%= post.title %></a>
+        </li>
+    <% if (!post.next) { %>
+      </ul>
+    <% } %>
+  <% }) %>
+</section>
