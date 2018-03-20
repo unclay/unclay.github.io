@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <title>Eleven</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <container class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Eleven</a>
+  </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+        <li class="menu-item">
+          <a href="/" class="menu-item-link">首页</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="/archives/" class="menu-item-link">归档</a>
+        </li>
+      
+        <li class="menu-item">
+          <a href="https://github.com/unclay" class="menu-item-link">Github</a>
+        </li>
+      
+    </ul>
+  </nav>
+</header>
+      <main class="main">
+        <article class="post">
+  <div class="post-title">
+    <h2 class="title">Ubuntu14.04安装最新版nodejs</h2>
+  </div>
+   <div class="post-meta">
+    <span class="post-time">2017-05-10</span>
+  </div>
+  <div class="post-content markdown-body">
+    <p>最近公司服务器因为某些原因，导致服务器环境需要全部重新部署，安装nodejs又忘了，记录下，方便下次使用。<br><a id="more"></a></p>
+<h2 id="安装最新版nodejs"><a href="#安装最新版nodejs" class="headerlink" title="安装最新版nodejs"></a>安装最新版nodejs</h2><h5 id="更新ubuntu软件源"><a href="#更新ubuntu软件源" class="headerlink" title="更新ubuntu软件源"></a>更新ubuntu软件源</h5><pre><code>sudo apt-get update
+sudo apt-get install -y python-software-properties software-properties-common
+sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+</code></pre><h5 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h5><pre><code>sudo apt-get install nodejs
+</code></pre><h5 id="更新npm的包镜像源，方便快速下载"><a href="#更新npm的包镜像源，方便快速下载" class="headerlink" title="更新npm的包镜像源，方便快速下载"></a>更新npm的包镜像源，方便快速下载</h5><pre><code>sudo npm config set registry https://registry.npm.taobao.org
+sudo npm config list
+</code></pre><h5 id="全局安装n管理器-用于管理nodejs版本"><a href="#全局安装n管理器-用于管理nodejs版本" class="headerlink" title="全局安装n管理器(用于管理nodejs版本)"></a>全局安装n管理器(用于管理nodejs版本)</h5><pre><code>sudo npm install n -g
+</code></pre><h5 id="安装最新的nodejs（stable版本）"><a href="#安装最新的nodejs（stable版本）" class="headerlink" title="安装最新的nodejs（stable版本）"></a>安装最新的nodejs（stable版本）</h5><pre><code>sudo n stable
+sudo node -v
+</code></pre><h2 id="QA"><a href="#QA" class="headerlink" title="QA"></a>QA</h2><h5 id="Q-更新软件源出现-找不到对应的KEY"><a href="#Q-更新软件源出现-找不到对应的KEY" class="headerlink" title="Q: 更新软件源出现-找不到对应的KEY"></a>Q: 更新软件源出现-找不到对应的KEY</h5><pre><code>// error code
+W: There is no public key available for the following key IDs:
+8B48AD6246925553
+W: Failed to fetch http://mirrors.aliyuncs.com/ubuntu/dists/precise/Release.gpg  Could not connect to mirrors.aliyuncs.com:80 (10.143.34.200), connection timed out
+
+// A：resolve: add key
+gpg --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
+gpg -a --export 8B48AD6246925553 | sudo apt-key add -
+</code></pre><h4 id="Q-aliyun、163等其他软件源一直出现下载失败"><a href="#Q-aliyun、163等其他软件源一直出现下载失败" class="headerlink" title="Q: aliyun、163等其他软件源一直出现下载失败"></a>Q: aliyun、163等其他软件源一直出现下载失败</h4><pre><code>// error code
+W: Failed to fetch http://mirrors.163.com/ubuntu/dists/precise/Release.gpg  Could not connect to mirrors.163.com:80 (123.58.173.106). - connect (111: Connection refused)
+W: Failed to fetch http://mirrors.163.com/ubuntu/dists/precise-security/Release.gpg  Unable to connect to mirrors.163.com:http:
+W: Failed to fetch http://mirrors.163.com/ubuntu/dists/precise-updates/Release.gpg  Unable to connect to mirrors.163.com:http:
+W: Failed to fetch http://mirrors.163.com/ubuntu/dists/precise-proposed/Release.gpg  Unable to connect to mirrors.163.com:http:
+W: Failed to fetch http://mirrors.163.com/ubuntu/dists/precise-backports/Release.gpg  Unable to connect to mirrors.163.com:http:
+W: Some index files failed to download. They have been ignored, or old ones used instead.
+
+// A: 部分网络问题，下载失败，尝试换成官方源，虽然比较慢，但是能下载
+// resolve：修改apt文件  /etc/apt/sources.list（注意备份）
+# Ubuntu官方
+deb http://cn.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-proposed main restricted universe multiverse
+</code></pre><h4 id="Q-sudo-make编译nodejs失败"><a href="#Q-sudo-make编译nodejs失败" class="headerlink" title="Q: sudo make编译nodejs失败"></a>Q: sudo make编译nodejs失败</h4><pre><code>make[1]: *** [/home/software/node-v7.8.0/out/Release/obj.target/v8_libplatform/deps/v8/src/libplatform/default-platform.o] Error 1
+make[1]: Leaving directory `/home/software/node-v7.8.0/out&apos;
+make: *** [node] Error 2
+
+// A: gcc版本太低，需要把gcc升级到4.8以上
+</code></pre><h2 id="ubuntu软件源"><a href="#ubuntu软件源" class="headerlink" title="ubuntu软件源"></a>ubuntu软件源</h2><p>修改/etc/apt/sources.list为以下软件源（改前请备份）<br>163和里面在部分网络下会一直下载失败，可以改回官方源下载</p>
+<h5 id="源列表"><a href="#源列表" class="headerlink" title="源列表"></a>源列表</h5><p><a href="http://wiki.ubuntu.org.cn/模板:14.04source" target="_blank" rel="noopener">http://wiki.ubuntu.org.cn/模板:14.04source</a></p>
+<h5 id="Ubuntu官方"><a href="#Ubuntu官方" class="headerlink" title="Ubuntu官方"></a>Ubuntu官方</h5><pre><code>deb http://cn.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb http://cn.archive.ubuntu.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://cn.archive.ubuntu.com/ubuntu/ trusty-proposed main restricted universe multiverse
+</code></pre><h5 id="163软件源"><a href="#163软件源" class="headerlink" title="163软件源"></a>163软件源</h5><pre><code>deb http://mirrors.163.com/ubuntu/ precise main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ precise-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ precise-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ precise-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ precise-backports main restricted universe multiverse
+</code></pre><h5 id="aliyun软件源"><a href="#aliyun软件源" class="headerlink" title="aliyun软件源"></a>aliyun软件源</h5><pre><code>deb http://mirrors.aliyun.com/ubuntu/ precise main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ precise-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ precise-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ precise-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ precise main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ precise-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ precise-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ precise-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ precise-backports main restricted universe multiverse
+
+deb http://mirrors.aliyuncs.com/ubuntu/ precise main restricted universe multiverse
+deb http://mirrors.aliyuncs.com/ubuntu/ precise-security main restricted universe multiverse
+deb http://mirrors.aliyuncs.com/ubuntu/ precise-updates main restricted universe multiverse
+deb http://mirrors.aliyuncs.com/ubuntu/ precise-proposed main restricted universe multiverse
+deb http://mirrors.aliyuncs.com/ubuntu/ precise-backports main restricted universe multiverse
+deb-src http://mirrors.aliyuncs.com/ubuntu/ precise main restricted universe multiverse
+deb-src http://mirrors.aliyuncs.com/ubuntu/ precise-security main restricted universe multiverse
+deb-src http://mirrors.aliyuncs.com/ubuntu/ precise-updates main restricted universe multiverse
+deb-src http://mirrors.aliyuncs.com/ubuntu/ precise-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyuncs.com/ubuntu/ precise-backports main restricted universe multiverse
+</code></pre>
+  </div>
+</article>
+      </main>
+      <div class="footer">
+  Copyright © 2017
+     - 2018
+   Clay | 
+  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> | Theme by <a href="https://github.com/unclay/hexo-theme-eleven">Eleven</a>.
+</div>
+
+    </container>
+  </body>
+</html>
